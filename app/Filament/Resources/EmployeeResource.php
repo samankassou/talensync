@@ -48,9 +48,8 @@ class EmployeeResource extends Resource
                 Forms\Components\DatePicker::make('date_of_joining')
                     ->required()
                     ->maxDate(now()),
-                Forms\Components\TextInput::make('position')
-                    ->required()
-                    ->maxLength(255),
+                Forms\Components\Select::make('job_position_id')
+                    ->relationship('jobPosition', 'title')
             ]);
     }
 
@@ -65,7 +64,7 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('phone'),
                 Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('date_of_joining'),
-                Tables\Columns\TextColumn::make('position'),
+                Tables\Columns\TextColumn::make('jobPosition.title'),
             ])
             ->filters([
                 //

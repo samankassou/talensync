@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Employee extends Model
 {
@@ -17,6 +18,11 @@ class Employee extends Model
         'phone',
         'email',
         'date_of_joining',
-        'position'
+        'job_position_id'
     ];
+
+    public function JobPosition(): BelongsTo
+    {
+        return $this->belongsTo(JobPosition::class);
+    }
 }
