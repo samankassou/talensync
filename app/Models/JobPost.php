@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class JobPost extends Model
 {
@@ -13,10 +14,16 @@ class JobPost extends Model
         'title',
         'description',
         'is_published',
-        'banner'
+        'banner',
+        'city_id'
     ];
 
     protected $casts = [
         'is_published' => 'boolean',
     ];
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
 }

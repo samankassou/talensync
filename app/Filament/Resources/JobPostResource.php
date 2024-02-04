@@ -36,6 +36,8 @@ class JobPostResource extends Resource
                         'draft' => 'Draft',
                         'published' => 'Published'
                     ]),
+                Forms\Components\Select::make('city_id')
+                    ->relationship('city', 'name'),
                 Forms\Components\FileUpload::make('banner')
             ]);
     }
@@ -47,6 +49,7 @@ class JobPostResource extends Resource
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('status')
                     ->badge(),
+                Tables\Columns\TextColumn::make('city.name'),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(100),
             ])
