@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
-class Employee extends Model
+class Candidate extends Model
 {
     use HasFactory;
 
@@ -17,12 +17,12 @@ class Employee extends Model
         'gender',
         'phone',
         'email',
-        'date_of_joining',
-        'job_position_id'
+        'job_post_id',
+        'resume'
     ];
 
-    public function jobPosition(): BelongsTo
+    public function jobPost(): BelongsTo
     {
-        return $this->belongsTo(JobPosition::class);
+        return $this->belongsTo(JobPost::class);
     }
 }
