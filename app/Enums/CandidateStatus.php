@@ -44,8 +44,8 @@ enum CandidateStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::New => 'heroicon-m-sparkles',
-            self::Contacted => 'heroicon-m-arrow-path',
-            self::Interviewed => 'heroicon-m-truck',
+            self::Contacted => 'heroicon-m-phone-arrow-up-right',
+            self::Interviewed => 'heroicon-m-chat-bubble-left-right',
             self::Hired => 'heroicon-m-check-badge',
             self::Rejected => 'heroicon-m-x-circle',
         };

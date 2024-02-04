@@ -48,6 +48,8 @@ class CandidateResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->label('Phone number')
                     ->tel(),
+                Forms\Components\Select::make('city_id')
+                    ->relationship('city', 'name'),
                 Forms\Components\ToggleButtons::make('status')
                     ->inline()
                     ->options(CandidateStatus::class)
@@ -67,6 +69,7 @@ class CandidateResource extends Resource
                 Tables\Columns\TextColumn::make('lastname'),
                 Tables\Columns\TextColumn::make('date_of_birth'),
                 Tables\Columns\TextColumn::make('gender'),
+                Tables\Columns\TextColumn::make('city.country.name'),
                 Tables\Columns\TextColumn::make('jobPost.title'),
                 Tables\Columns\TextColumn::make('status')
                     ->badge(),

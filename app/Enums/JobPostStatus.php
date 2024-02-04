@@ -22,7 +22,7 @@ enum JobPostStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::Draft => 'draft',
-            self::Scheduled => 'Contacted',
+            self::Scheduled => 'Scheduled',
             self::Published => 'published',
             self::Cancelled => 'cancelled',
             self::Expired => 'expired',
@@ -32,9 +32,9 @@ enum JobPostStatus: string implements HasColor, HasIcon, HasLabel
     public function getColor(): string | array | null
     {
         return match ($this) {
-            self::Draft => 'info',
-            self::Scheduled => 'warning',
-            self::Published, => 'warning',
+            self::Draft => 'warning',
+            self::Scheduled => 'info',
+            self::Published, => 'success',
             self::Cancelled, => 'danger',
             self::Expired, => 'danger',
         };

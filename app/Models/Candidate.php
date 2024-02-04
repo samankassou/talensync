@@ -20,7 +20,8 @@ class Candidate extends Model
         'email',
         'job_post_id',
         'resume',
-        'status'
+        'status',
+        'city_id',
     ];
 
     protected $casts = [
@@ -30,5 +31,10 @@ class Candidate extends Model
     public function jobPost(): BelongsTo
     {
         return $this->belongsTo(JobPost::class);
+    }
+
+    public function city(): BelongsTo
+    {
+        return $this->belongsTo(City::class);
     }
 }

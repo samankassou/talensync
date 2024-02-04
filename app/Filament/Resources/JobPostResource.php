@@ -20,7 +20,7 @@ class JobPostResource extends Resource
 
     protected static ?string $navigationGroup = 'Recruitment';
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     public static function form(Form $form): Form
     {
@@ -29,9 +29,10 @@ class JobPostResource extends Resource
                 Forms\Components\TextInput::make('title')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\Textarea::make('description')
+                Forms\Components\MarkdownEditor::make('description')
                     ->required()
-                    ->maxLength(65535),
+                    ->maxLength(65535)
+                    ->columnSpan('full'),
                 Forms\Components\ToggleButtons::make('status')
                     ->inline()
                     ->options(JobPostStatus::class)
@@ -55,7 +56,7 @@ class JobPostResource extends Resource
                     ->badge(),
                 Tables\Columns\TextColumn::make('city.name'),
                 Tables\Columns\TextColumn::make('description')
-                    ->limit(100),
+                    ->limit(30),
             ])
             ->filters([
                 //
