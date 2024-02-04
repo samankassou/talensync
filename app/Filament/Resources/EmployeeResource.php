@@ -12,6 +12,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Section;
 
 class EmployeeResource extends Resource
 {
@@ -25,33 +26,40 @@ class EmployeeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('firstname')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('lastname')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->label('Email address')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('gender')
-                    ->options([
-                        'M' => 'Masculin',
-                        'F' => 'Féminin',
-                    ])
-                    ->required(),
-                Forms\Components\DatePicker::make('date_of_birth')
-                    ->required()
-                    ->maxDate(now()),
-                Forms\Components\TextInput::make('phone')
-                    ->label('Phone number')
-                    ->tel(),
-                Forms\Components\DatePicker::make('date_of_joining')
-                    ->required()
-                    ->maxDate(now()),
-                Forms\Components\Select::make('job_position_id')
-                    ->relationship('jobPosition', 'title')
+                Section::make('Personnal informations')
+                    ->schema([
+                        Forms\Components\TextInput::make('firstname')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('lastname')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->label('Email address')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Select::make('gender')
+                            ->options([
+                                'M' => 'Masculin',
+                                'F' => 'Féminin',
+                            ])
+                            ->required(),
+                        Forms\Components\DatePicker::make('date_of_birth')
+                            ->required()
+                            ->maxDate(now()),
+                        Forms\Components\TextInput::make('phone')
+                            ->label('Phone number')
+                            ->tel(),
+                    ])->columns(2),
+
+                Section::make('Other informations')
+                    ->schema([
+                        Forms\Components\DatePicker::make('date_of_joining')
+                            ->required()
+                            ->maxDate(now()),
+                        Forms\Components\Select::make('job_position_id')
+                            ->relationship('jobPosition', 'title')
+                    ])->columns(2)
             ]);
     }
 

@@ -13,6 +13,7 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Filament\Forms\Components\Section;
 
 class JobPostResource extends Resource
 {
@@ -26,24 +27,27 @@ class JobPostResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('title')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\MarkdownEditor::make('description')
-                    ->required()
-                    ->maxLength(65535)
-                    ->columnSpan('full'),
-                Forms\Components\ToggleButtons::make('status')
-                    ->inline()
-                    ->options(JobPostStatus::class)
-                    ->hiddenOn('create')
-                    ->required(),
-                Forms\Components\Select::make('city_id')
-                    ->relationship('city', 'name'),
-                Forms\Components\DatePicker::make('expiry_date')
-                    ->required()
-                    ->minDate(now()),
-                Forms\Components\FileUpload::make('banner')
+                Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Select::make('city_id')
+                            ->relationship('city', 'name'),
+                        Forms\Components\MarkdownEditor::make('description')
+                            ->required()
+                            ->maxLength(65535)
+                            ->columnSpan('full'),
+                        Forms\Components\ToggleButtons::make('status')
+                            ->inline()
+                            ->options(JobPostStatus::class)
+                            ->hiddenOn('create')
+                            ->required(),
+                        Forms\Components\DatePicker::make('expiry_date')
+                            ->required()
+                            ->minDate(now()),
+                        Forms\Components\FileUpload::make('banner')
+                    ])->columns(2)
             ]);
     }
 

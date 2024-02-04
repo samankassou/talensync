@@ -12,6 +12,7 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
+use Filament\Forms\Components\Section;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class CandidateResource extends Resource
@@ -26,38 +27,41 @@ class CandidateResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('firstname')
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('lastname')
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\TextInput::make('email')
-                    ->label('Email address')
-                    ->email()
-                    ->required()
-                    ->maxLength(255),
-                Forms\Components\Select::make('gender')
-                    ->options([
-                        'M' => 'Masculin',
-                        'F' => 'Féminin',
-                    ])
-                    ->required(),
-                Forms\Components\DatePicker::make('date_of_birth')
-                    ->required()
-                    ->maxDate(now()),
-                Forms\Components\TextInput::make('phone')
-                    ->label('Phone number')
-                    ->tel(),
-                Forms\Components\Select::make('city_id')
-                    ->relationship('city', 'name'),
-                Forms\Components\ToggleButtons::make('status')
-                    ->inline()
-                    ->options(CandidateStatus::class)
-                    ->hiddenOn('create')
-                    ->required(),
-                Forms\Components\Select::make('job_post_id')
-                    ->relationship('jobPost', 'title'),
-                Forms\Components\FileUpload::make('resume'),
+                Section::make()
+                    ->schema([
+                        Forms\Components\TextInput::make('firstname')
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('lastname')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\TextInput::make('email')
+                            ->label('Email address')
+                            ->email()
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\Select::make('gender')
+                            ->options([
+                                'M' => 'Masculin',
+                                'F' => 'Féminin',
+                            ])
+                            ->required(),
+                        Forms\Components\DatePicker::make('date_of_birth')
+                            ->required()
+                            ->maxDate(now()),
+                        Forms\Components\TextInput::make('phone')
+                            ->label('Phone number')
+                            ->tel(),
+                        Forms\Components\Select::make('city_id')
+                            ->relationship('city', 'name'),
+                        Forms\Components\ToggleButtons::make('status')
+                            ->inline()
+                            ->options(CandidateStatus::class)
+                            ->hiddenOn('create')
+                            ->required(),
+                        Forms\Components\Select::make('job_post_id')
+                            ->relationship('jobPost', 'title'),
+                        Forms\Components\FileUpload::make('resume'),
+                    ])->columns(2)
             ]);
     }
 
