@@ -31,7 +31,7 @@ class JobPositionResource extends Resource
                         Forms\Components\TextInput::make('title')
                             ->required()
                             ->maxLength(255),
-                        Forms\Components\Textarea::make('description')
+                        Forms\Components\RichEditor::make('description')
                             ->maxLength(65535)
                             ->columnSpan('full')
                     ])

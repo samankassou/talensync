@@ -19,7 +19,9 @@ class JobPost extends Model
         'banner',
         'city_id',
         'expiry_date',
-        'status'
+        'status',
+        'available_positions',
+        'publish_date'
     ];
 
     protected $casts = [

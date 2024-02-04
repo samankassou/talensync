@@ -7,6 +7,7 @@ use App\Filament\Resources\JobPostResource\Pages;
 use App\Filament\Resources\JobPostResource\RelationManagers;
 use App\Models\JobPost;
 use Filament\Forms;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -27,27 +28,46 @@ class JobPostResource extends Resource
     {
         return $form
             ->schema([
-                Section::make()
+                Grid::make(6)
                     ->schema([
-                        Forms\Components\TextInput::make('title')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\Select::make('city_id')
-                            ->relationship('city', 'name'),
-                        Forms\Components\MarkdownEditor::make('description')
-                            ->required()
-                            ->maxLength(65535)
-                            ->columnSpan('full'),
-                        Forms\Components\ToggleButtons::make('status')
-                            ->inline()
-                            ->options(JobPostStatus::class)
-                            ->hiddenOn('create')
-                            ->required(),
-                        Forms\Components\DatePicker::make('expiry_date')
-                            ->required()
-                            ->minDate(now()),
-                        Forms\Components\FileUpload::make('banner')
-                    ])->columns(2)
+                        Grid::make()
+                            ->schema([
+                                Section::make()
+                                    ->schema([
+                                        Forms\Components\TextInput::make('title')
+                                            ->required()
+                                            ->maxLength(255),
+                                        Forms\Components\TextInput::make('available_positions')
+                                            ->numeric()
+                                            ->required(),
+                                        Forms\Components\Select::make('city_id')
+                                            ->relationship('city', 'name'),
+                                        Forms\Components\DatePicker::make('expiry_date')
+                                            ->required()
+                                            ->minDate(now()),
+                                        Forms\Components\MarkdownEditor::make('description')
+                                            ->required()
+                                            ->maxLength(65535)
+                                            ->columnSpan('full'),
+                                        Forms\Components\FileUpload::make('banner')
+                                            ->columnSpan('full'),
+                                    ])->columns(2),
+                            ])
+                            ->columnSpan(4),
+                        Grid::make()
+                            ->schema([
+                                Section::make('Publishing')
+                                    ->description('Settings for publishing this job post.')
+                                    ->schema([
+                                        Forms\Components\ToggleButtons::make('status')
+                                            ->inline()
+                                            ->options(JobPostStatus::class)
+                                            ->hiddenOn('create')
+                                            ->required(),
+                                        Forms\Components\DateTimePicker::make('publish_date'),
+                                    ])->columns(1),
+                            ])->columnSpan(2),
+                    ]),
             ]);
     }
 
