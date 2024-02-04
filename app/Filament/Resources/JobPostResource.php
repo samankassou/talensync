@@ -17,6 +17,8 @@ class JobPostResource extends Resource
 {
     protected static ?string $model = JobPost::class;
 
+    protected static ?string $navigationGroup = 'Recruitment';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -29,6 +31,11 @@ class JobPostResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->maxLength(65535),
+                Forms\Components\Radio::make('status')
+                    ->options([
+                        'draft' => 'Draft',
+                        'published' => 'Published'
+                    ]),
                 Forms\Components\FileUpload::make('banner')
             ]);
     }
@@ -38,6 +45,8 @@ class JobPostResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(100),
             ])

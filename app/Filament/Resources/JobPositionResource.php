@@ -17,6 +17,8 @@ class JobPositionResource extends Resource
 {
     protected static ?string $model = JobPosition::class;
 
+    protected static ?string $navigationGroup = 'Staff';
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
