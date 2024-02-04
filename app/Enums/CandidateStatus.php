@@ -10,22 +10,22 @@ enum CandidateStatus: string implements HasColor, HasIcon, HasLabel
 {
     case New = 'new';
 
-    case Processing = 'processing';
+    case Contacted = 'contated';
 
-    case Shipped = 'shipped';
+    case Interviewed = 'interviewed';
 
-    case Delivered = 'delivered';
+    case Hired = 'hired';
 
-    case Cancelled = 'cancelled';
+    case Rejected = 'rejected';
 
     public function getLabel(): string
     {
         return match ($this) {
             self::New => 'New',
-            self::Processing => 'Processing',
-            self::Shipped => 'Shipped',
-            self::Delivered => 'Delivered',
-            self::Cancelled => 'Cancelled',
+            self::Contacted => 'Contacted',
+            self::Interviewed => 'Interviewed',
+            self::Hired => 'Hired',
+            self::Rejected => 'Rejected',
         };
     }
 
@@ -33,9 +33,10 @@ enum CandidateStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::New => 'info',
-            self::Processing => 'warning',
-            self::Shipped, self::Delivered => 'success',
-            self::Cancelled => 'danger',
+            self::Contacted => 'warning',
+            self::Interviewed, => 'warning',
+            self::Hired => 'success',
+            self::Rejected => 'danger',
         };
     }
 
@@ -43,10 +44,10 @@ enum CandidateStatus: string implements HasColor, HasIcon, HasLabel
     {
         return match ($this) {
             self::New => 'heroicon-m-sparkles',
-            self::Processing => 'heroicon-m-arrow-path',
-            self::Shipped => 'heroicon-m-truck',
-            self::Delivered => 'heroicon-m-check-badge',
-            self::Cancelled => 'heroicon-m-x-circle',
+            self::Contacted => 'heroicon-m-arrow-path',
+            self::Interviewed => 'heroicon-m-truck',
+            self::Hired => 'heroicon-m-check-badge',
+            self::Rejected => 'heroicon-m-x-circle',
         };
     }
 }

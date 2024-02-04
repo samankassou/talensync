@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\CandidateStatus;
 use App\Filament\Resources\CandidateResource\Pages;
 use App\Filament\Resources\CandidateResource\RelationManagers;
 use App\Models\Candidate;
@@ -47,6 +48,11 @@ class CandidateResource extends Resource
                 Forms\Components\TextInput::make('phone')
                     ->label('Phone number')
                     ->tel(),
+                Forms\Components\ToggleButtons::make('status')
+                    ->inline()
+                    ->options(CandidateStatus::class)
+                    ->hiddenOn('create')
+                    ->required(),
                 Forms\Components\Select::make('job_post_id')
                     ->relationship('jobPost', 'title'),
                 Forms\Components\FileUpload::make('resume'),
@@ -61,9 +67,9 @@ class CandidateResource extends Resource
                 Tables\Columns\TextColumn::make('lastname'),
                 Tables\Columns\TextColumn::make('date_of_birth'),
                 Tables\Columns\TextColumn::make('gender'),
-                Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('jobPost.title'),
+                Tables\Columns\TextColumn::make('status')
+                    ->badge(),
             ])
             ->filters([
                 //

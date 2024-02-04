@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CandidateStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -18,7 +19,12 @@ class Candidate extends Model
         'phone',
         'email',
         'job_post_id',
-        'resume'
+        'resume',
+        'status'
+    ];
+
+    protected $casts = [
+        'status' => CandidateStatus::class,
     ];
 
     public function jobPost(): BelongsTo
