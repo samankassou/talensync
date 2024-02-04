@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\JobPostStatus;
 use App\Filament\Resources\JobPostResource\Pages;
 use App\Filament\Resources\JobPostResource\RelationManagers;
 use App\Models\JobPost;
@@ -31,13 +32,16 @@ class JobPostResource extends Resource
                 Forms\Components\Textarea::make('description')
                     ->required()
                     ->maxLength(65535),
-                Forms\Components\Radio::make('status')
-                    ->options([
-                        'draft' => 'Draft',
-                        'published' => 'Published'
-                    ]),
+                Forms\Components\ToggleButtons::make('status')
+                    ->inline()
+                    ->options(JobPostStatus::class)
+                    ->hiddenOn('create')
+                    ->required(),
                 Forms\Components\Select::make('city_id')
                     ->relationship('city', 'name'),
+                Forms\Components\DatePicker::make('expiry_date')
+                    ->required()
+                    ->minDate(now()),
                 Forms\Components\FileUpload::make('banner')
             ]);
     }
