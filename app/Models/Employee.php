@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -32,8 +33,8 @@ class Employee extends Model
         return $this->hasMany(Salary::class);
     }
 
-    public function currentSalary(): ?Salary
+    public function currentSalary(): HasOne
     {
-        return $this->salaries()->where('is_current', true)->first();
+        return $this->hasOne(Salary::class)->latestOfMany();
     }
 }

@@ -72,9 +72,15 @@ class EmployeeResource extends Resource
                 Tables\Columns\TextColumn::make('date_of_birth'),
                 Tables\Columns\TextColumn::make('gender'),
                 Tables\Columns\TextColumn::make('phone'),
-                Tables\Columns\TextColumn::make('email'),
                 Tables\Columns\TextColumn::make('date_of_joining'),
                 Tables\Columns\TextColumn::make('jobPosition.title'),
+                Tables\Columns\TextColumn::make('currentSalary.value')
+                    ->numeric(
+                        decimalPlaces: 0,
+                        decimalSeparator: ',',
+                        thousandsSeparator: ' ',
+                    )
+                    ->suffix(' FCFA'),
             ])
             ->filters([
                 //
