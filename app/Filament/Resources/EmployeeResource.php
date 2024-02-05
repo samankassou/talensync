@@ -59,6 +59,7 @@ class EmployeeResource extends Resource
                             ->maxDate(now()),
                         Forms\Components\Select::make('job_position_id')
                             ->relationship('jobPosition', 'title')
+                            ->required()
                     ])->columns(2)
             ]);
     }

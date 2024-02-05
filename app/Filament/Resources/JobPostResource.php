@@ -81,6 +81,7 @@ class JobPostResource extends Resource
                 Tables\Columns\TextColumn::make('city.name'),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(30),
+                Tables\Columns\TextColumn::make('candidates_count')->counts('candidates'),
             ])
             ->filters([
                 //

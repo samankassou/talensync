@@ -45,6 +45,7 @@ class JobPositionResource extends Resource
                 Tables\Columns\TextColumn::make('title'),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(100),
+                Tables\Columns\TextColumn::make('employees_count')->counts('employees'),
             ])
             ->filters([
                 //
