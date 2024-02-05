@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\JobPostContractType;
 use App\Enums\JobPostStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,12 +22,14 @@ class JobPost extends Model
         'expiry_date',
         'status',
         'available_positions',
-        'publish_date'
+        'publish_date',
+        'contract_type'
     ];
 
     protected $casts = [
         'is_published' => 'boolean',
         'status' => JobPostStatus::class,
+        'contract_type' => JobPostContractType::class
     ];
 
     public function city(): BelongsTo

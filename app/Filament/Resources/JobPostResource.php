@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\JobPostContractType;
 use App\Enums\JobPostStatus;
 use App\Filament\Resources\JobPostResource\Pages;
 use App\Filament\Resources\JobPostResource\RelationManagers;
@@ -22,7 +23,7 @@ class JobPostResource extends Resource
 
     protected static ?string $navigationGroup = 'Recruitment';
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-newspaper';
 
     public static function form(Form $form): Form
     {
@@ -40,6 +41,9 @@ class JobPostResource extends Resource
                                         Forms\Components\TextInput::make('available_positions')
                                             ->numeric()
                                             ->required(),
+                                        Forms\Components\Select::make('contract_type')
+                                            ->required()
+                                            ->options(JobPostContractType::class),
                                         Forms\Components\Select::make('city_id')
                                             ->relationship('city', 'name'),
                                         Forms\Components\DatePicker::make('expiry_date')
@@ -81,6 +85,8 @@ class JobPostResource extends Resource
                 Tables\Columns\TextColumn::make('city.name'),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(30),
+                Tables\Columns\TextColumn::make('contract_type')
+                    ->badge(),
                 Tables\Columns\TextColumn::make('candidates_count')->counts('candidates'),
             ])
             ->filters([
