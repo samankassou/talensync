@@ -2,9 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Employee extends Model
 {
@@ -24,5 +25,15 @@ class Employee extends Model
     public function jobPosition(): BelongsTo
     {
         return $this->belongsTo(JobPosition::class);
+    }
+
+    public function salaries(): HasMany
+    {
+        return $this->hasMany(Salary::class);
+    }
+
+    public function currentSalary(): ?Salary
+    {
+        return $this->salaries()->where('is_current', true)->first();
     }
 }
