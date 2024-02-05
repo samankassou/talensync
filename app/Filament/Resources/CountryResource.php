@@ -37,6 +37,7 @@ class CountryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\TextColumn::make('cities_count')->counts('cities'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -60,10 +61,19 @@ class CountryResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            RelationManagers\CitiesRelationManager::class
+        ];
+    }
+
     public static function getPages(): array
     {
         return [
             'index' => Pages\ManageCountries::route('/'),
+            'create' => Pages\CreateCountry::route('/create'),
+            'edit' => Pages\EditCountry::route('/{record}/edit'),
         ];
     }
 }
