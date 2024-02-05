@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignIdFor(Employee::class);
             $table->unsignedBigInteger('value');
             $table->date('end_date')->nullable();
-            $table->boolean('is_current')->default(false);
+            $table->boolean('is_current')->default(true);
             $table->timestamps();
         });
     }

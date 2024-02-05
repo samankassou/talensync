@@ -7,6 +7,7 @@ use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Filament\Tables\Actions\CreateAction;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -29,6 +30,7 @@ class SalariesRelationManager extends RelationManager
     public function table(Table $table): Table
     {
         return $table
+            ->modifyQueryUsing(fn (Builder $query) => $query->latest())
             ->recordTitleAttribute('value')
             ->columns([
                 Tables\Columns\TextColumn::make('value')
@@ -46,7 +48,14 @@ class SalariesRelationManager extends RelationManager
                 //
             ])
             ->headerActions([
-                Tables\Actions\CreateAction::make(),
+                Tables\Actions\CreateAction::make()
+                    ->before(function (RelationManager $livewire) {
+
+                        if ($livewire->ownerRecord->currentSalary()->exists()) {
+                            $livewire->ownerRecord->currentSalary()->update(['end_date' => now()]);
+                        }
+                        $livewire->ownerRecord->salaries()->update(['is_current' => false]);
+                    }),
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
