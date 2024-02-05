@@ -21,22 +21,22 @@ enum JobPostStatus: string implements HasColor, HasIcon, HasLabel
     public function getLabel(): string
     {
         return match ($this) {
-            self::Draft => 'draft',
+            self::Draft => 'Draft',
             self::Scheduled => 'Scheduled',
-            self::Published => 'published',
-            self::Cancelled => 'cancelled',
-            self::Expired => 'expired',
+            self::Published => 'Published',
+            self::Cancelled => 'Cancelled',
+            self::Expired => 'Expired',
         };
     }
 
     public function getColor(): string | array | null
     {
         return match ($this) {
-            self::Draft => 'warning',
+            self::Draft => 'primary',
             self::Scheduled => 'info',
             self::Published, => 'success',
             self::Cancelled, => 'danger',
-            self::Expired, => 'danger',
+            self::Expired, => 'warning',
         };
     }
 
@@ -45,9 +45,9 @@ enum JobPostStatus: string implements HasColor, HasIcon, HasLabel
         return match ($this) {
             self::Draft => 'heroicon-m-sparkles',
             self::Scheduled => 'heroicon-m-arrow-path',
-            self::Published => 'heroicon-m-truck',
-            self::Cancelled => 'heroicon-m-truck',
-            self::Expired => 'heroicon-m-truck',
+            self::Published => 'heroicon-m-paper-airplane',
+            self::Expired => 'heroicon-m-clock',
+            self::Cancelled => 'heroicon-m-x-circle',
         };
     }
 }
