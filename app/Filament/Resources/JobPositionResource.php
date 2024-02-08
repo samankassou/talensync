@@ -20,6 +20,8 @@ class JobPositionResource extends Resource
 
     protected static ?string $navigationGroup = 'Staff';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
@@ -42,10 +44,14 @@ class JobPositionResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('title'),
+                Tables\Columns\TextColumn::make('title')
+                    ->searchable()
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('description')
                     ->limit(100),
-                Tables\Columns\TextColumn::make('employees_count')->counts('employees'),
+                Tables\Columns\TextColumn::make('employees_count')
+                    ->label('Employees')
+                    ->counts('employees'),
             ])
             ->filters([
                 //

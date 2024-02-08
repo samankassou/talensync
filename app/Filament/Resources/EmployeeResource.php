@@ -20,6 +20,8 @@ class EmployeeResource extends Resource
 
     protected static ?string $navigationGroup = 'Staff';
 
+    protected static ?int $navigationSort = 2;
+
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
 
     public static function form(Form $form): Form
@@ -68,8 +70,12 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('firstname'),
-                Tables\Columns\TextColumn::make('lastname'),
+                Tables\Columns\TextColumn::make('firstname')
+                    ->sortable()
+                    ->searchable(),
+                Tables\Columns\TextColumn::make('lastname')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('date_of_birth'),
                 Tables\Columns\TextColumn::make('gender'),
                 Tables\Columns\TextColumn::make('phone'),
@@ -81,7 +87,8 @@ class EmployeeResource extends Resource
                         decimalSeparator: ',',
                         thousandsSeparator: ' ',
                     )
-                    ->suffix(' FCFA'),
+                    ->suffix(' FCFA')
+                    ->toggledHiddenByDefault(),
             ])
             ->filters([
                 //
@@ -90,9 +97,7 @@ class EmployeeResource extends Resource
                 Tables\Actions\EditAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\BulkActionGroup::make([]),
             ]);
     }
 

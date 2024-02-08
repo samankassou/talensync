@@ -19,6 +19,8 @@ class CountryResource extends Resource
 
     protected static ?string $navigationGroup = 'Locations';
 
+    protected static ?int $navigationSort = 3;
+
     protected static ?string $navigationIcon = 'heroicon-o-globe-europe-africa';
 
     public static function form(Form $form): Form
@@ -36,8 +38,11 @@ class CountryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
-                    ->searchable(),
-                Tables\Columns\TextColumn::make('cities_count')->counts('cities'),
+                    ->searchable()
+                    ->sortable(),
+                Tables\Columns\TextColumn::make('cities_count')
+                    ->label('Cities')
+                    ->counts('cities'),
                 Tables\Columns\TextColumn::make('created_at')
                     ->dateTime()
                     ->sortable()
@@ -52,12 +57,9 @@ class CountryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
-                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                Tables\Actions\BulkActionGroup::make([]),
             ]);
     }
 
