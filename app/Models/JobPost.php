@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
-use App\Enums\JobPostContractType;
 use App\Enums\JobPostStatus;
+use App\Enums\JobPostContractType;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JobPost extends Model
 {
@@ -40,5 +41,11 @@ class JobPost extends Model
     public function candidates(): HasMany
     {
         return $this->hasMany(Candidate::class);
+    }
+
+    public function scopePublished(Builder $query): void
+    {
+        $query->where('is_published', true)
+            ->where('status', JobPostStatus::Published);
     }
 }
